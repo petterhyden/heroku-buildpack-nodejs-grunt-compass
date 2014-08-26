@@ -10,8 +10,8 @@ env
 build_dir=$1
 cache_dir=$2
 env_dir=$3
-ssh_dir=$build_dir/.ssh
-#ssh_dir=~/.ssh
+#ssh_dir=$build_dir/.ssh
+ssh_dir=~/.ssh
 
 # setup ssh
 mkdir -p $ssh_dir/
