@@ -17,7 +17,8 @@ chmod 700 $ssh_dir/
 cp $env_dir/SSH_KEY $ssh_dir/id_rsa
 chmod 400 $ssh_dir/id_rsa
 
-echo 'StrictHostKeyChecking=no' > $ssh_dir/config
+echo 'Host *' > $ssh_dir/config
+echo '  StrictHostKeyChecking=no' >> $ssh_dir/config
 chmod 600 $ssh_dir/config
 
 mkdir -p "$build_dir/.profile.d"
