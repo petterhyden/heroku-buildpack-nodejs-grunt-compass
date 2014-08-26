@@ -14,10 +14,10 @@ ssh_dir=$build_dir/.ssh
 mkdir -p $ssh_dir/
 chmod 700 $ssh_dir/
 
-cp $env_dir/ssh_key $ssh_dir/id_rsa
-chmod 400 $SSH_DIR/id_rsa
+cp $env_dir/SSH_KEY $ssh_dir/id_rsa
+chmod 400 $ssh_dir/id_rsa
 
-echo 'StrictHostKeyChecking=no' > $SSH_DIR/config
+echo 'StrictHostKeyChecking=no' > $ssh_dir/config
 chmod 600 $ssh_dir/config
 
 mkdir -p "$build_dir/.profile.d"
