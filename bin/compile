@@ -21,8 +21,8 @@ echo 'Host *' > $ssh_dir/config
 echo '  StrictHostKeyChecking=no' >> $ssh_dir/config
 chmod 600 $ssh_dir/config
 
-mkdir -p "$build_dir/.profile.d"
-echo "unset -v ssh_key" > $build_dir/.profile.d/unset-ssh-key.sh
+# mkdir -p "$build_dir/.profile.d"
+# echo "unset -v ssh_key" > $build_dir/.profile.d/unset-ssh-key.sh
 
 
 bp_dir=$(cd $(dirname $0); cd ..; pwd)
@@ -120,6 +120,12 @@ fi
   status "Installing dependencies"
   # Make npm output to STDOUT instead of its default STDERR
   npm install --userconfig $build_dir/.npmrc --production 2>&1 | indent
+
+  ls ~/.ssh
+  
+  # install bower deps
+  $build_dir/node_modules/bower/bin/bower install
+
 )
 
 # Persist goodies like node-version in the slug
@@ -189,8 +195,6 @@ mkdir -p $build_dir/.profile.d
 echo "export PATH=\"\$HOME/vendor/node/bin:\$HOME/bin:\$HOME/node_modules/.bin:\$PATH\";" > $build_dir/.profile.d/nodejs.sh
 echo "export PATH=\"\$HOME/.gem/ruby/1.9.1/bin:\$PATH\"" > $build_dir/.profile.d/ruby.sh
 
-# install bower deps
-$build_dir/node_modules/bower/bin/bower install
 
 # Check and run Grunt
 (
