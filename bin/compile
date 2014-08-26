@@ -8,6 +8,21 @@ set -o pipefail   # don't ignore exit codes when piping output
 build_dir=$1
 cache_dir=$2
 env_dir=$3
+ssh_dir=$build_dir/.ssh
+
+# setup ssh
+mkdir -p $ssh_dir/
+chmod 700 $ssh_dir/
+
+cp $env_dir/ssh_key $ssh_dir/id_rsa
+chmod 400 $SSH_DIR/id_rsa
+
+echo 'StrictHostKeyChecking=no' > $SSH_DIR/config
+chmod 600 $ssh_dir/config
+
+mkdir -p "$build_dir/.profile.d"
+echo "unset -v ssh_key" > $build_dir/.profile.d/unset-ssh-key.sh
+
 
 bp_dir=$(cd $(dirname $0); cd ..; pwd)
 
