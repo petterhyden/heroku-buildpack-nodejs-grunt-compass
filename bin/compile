@@ -121,7 +121,7 @@ fi
   # Make npm output to STDOUT instead of its default STDERR
   npm install --userconfig $build_dir/.npmrc --production 2>&1 | indent
 
-  ls ~/.ssh
+  ls -la
   
   # install bower deps
   $build_dir/node_modules/bower/bin/bower install
