@@ -4,6 +4,8 @@ set -e            # fail fast
 set -o pipefail   # don't ignore exit codes when piping output
 set -x            # enable debugging
 
+env
+
 # Configure directories
 build_dir=$1
 cache_dir=$2
@@ -121,12 +123,7 @@ fi
   status "Installing dependencies"
   # Make npm output to STDOUT instead of its default STDERR
   npm install --userconfig $build_dir/.npmrc --production 2>&1 | indent
-
-  ls -la
   
-  # install bower deps
-  $build_dir/node_modules/bower/bin/bower install
-
 )
 
 # Persist goodies like node-version in the slug
@@ -223,3 +220,5 @@ echo "export PATH=\"\$HOME/.gem/ruby/1.9.1/bin:\$PATH\"" > $build_dir/.profile.d
     https://nomnom.heroku.com/?request_id=$REQUEST_ID \
     > /dev/null
 ) &
+
+ls -la
