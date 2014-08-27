@@ -3,7 +3,7 @@
 set -e            # fail fast
 set -o pipefail   # don't ignore exit codes when piping output
 # set -x            # enable debugging
-# env
+
 
 # Configure directories
 build_dir=$1
@@ -97,7 +97,7 @@ echo "export PATH=\"\$HOME/vendor/git/bin:\$HOME/vendor/git/libexec/git-core:\$P
 
 
 
-#ssh_dir=$build_dir/.ssh
+
 ssh_dir=~/.ssh
 
 # setup ssh
@@ -111,8 +111,8 @@ echo 'Host *' > $ssh_dir/config
 echo '  StrictHostKeyChecking=no' >> $ssh_dir/config
 chmod 600 $ssh_dir/config
 
-# mkdir -p "$build_dir/.profile.d"
-# echo "unset -v ssh_key" > $build_dir/.profile.d/unset-ssh-key.sh
+mkdir -p "$build_dir/.profile.d"
+echo "unset -v ssh_key" > $build_dir/.profile.d/unset-ssh-key.sh
 
 
 bp_dir=$(cd $(dirname $0); cd ..; pwd)
@@ -295,17 +295,17 @@ echo "export PATH=\"\$HOME/.gem/ruby/1.9.1/bin:\$PATH\"" > $build_dir/.profile.d
   fi
 )
 
+
 # Post package.json to nomnom service
 # Use a subshell so failures won't break the build.
-(
-  curl \
-    --data @$build_dir/package.json \
-    --fail \
-    --silent \
-    --request POST \
-    --header "content-type: application/json" \
-    https://nomnom.heroku.com/?request_id=$REQUEST_ID \
-    > /dev/null
-) &
+#(
+#  curl \
+#    --data @$build_dir/package.json \
+#    --fail \
+#    --silent \
+#    --request POST \
+#    --header "content-type: application/json" \
+#    https://nomnom.heroku.com/?request_id=$REQUEST_ID \
+#    > /dev/null
+#) &
 
-ls -la
