@@ -95,12 +95,9 @@ mkdir -p $build_dir/.profile.d
 echo "export PATH=\"\$HOME/vendor/git/bin:\$HOME/vendor/git/libexec/git-core:\$PATH\";" > $build_dir/.profile.d/git.sh
 
 
-
-
-
+# Install private ssh key
 ssh_dir=~/.ssh
 
-# setup ssh
 mkdir -p $ssh_dir/
 chmod 700 $ssh_dir/
 
