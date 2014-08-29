@@ -20,7 +20,7 @@ source $bp_dir/bin/common.sh
 
 
 
-is_gruntfile_present= [ -f $build_dir/grunt.js ] || [ -f $build_dir/Gruntfile.js ] || [ -f $build_dir/Gruntfile.coffee ];
+is_gitconfig_present= [ -f $build_dir/.git.cfg ];
 if $is_gruntfile_present; then
   status "Found git config file"
   source "$build_dir/.git.cfg"
