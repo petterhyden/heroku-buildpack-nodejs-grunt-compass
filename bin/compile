@@ -18,7 +18,16 @@ unset GIT_DIR
 # Load some convenience functions like status(), echo(), and indent()
 source $bp_dir/bin/common.sh
 
-source "$build_dir/_git.cfg"
+
+
+is_gruntfile_present= [ -f $build_dir/grunt.js ] || [ -f $build_dir/Gruntfile.js ] || [ -f $build_dir/Gruntfile.coffee ];
+if $is_gruntfile_present; then
+  status "Found git config file"
+  source "$build_dir/.git.cfg"
+else
+  status "No git config file found, defaulting to version 1.9"
+  git_version = "1.9"
+fi
 
 if [ $GIT_VERSION ] && [ ! $git_version ]; then
   git_version=$GIT_VERSION
