@@ -20,13 +20,12 @@ source $bp_dir/bin/common.sh
 
 
 
-is_gitconfig_present= [ -f $build_dir/.git.cfg ];
-if $is_gitconfig_present; then
-  status "Found git config file"
-  source "$build_dir/.git.cfg"
-else
+if [ ! -e $build_dir/.git.cfg ]; then
   status "No git config file found, defaulting to version 1.9"
   git_version = "1.9"
+else
+  status "Found git config file"
+  source "$build_dir/.git.cfg"
 fi
 
 if [ $GIT_VERSION ] && [ ! $git_version ]; then
