@@ -243,9 +243,15 @@ fi
     export_env_dir $env_dir
   fi
 
-  status "Installing dependencies"
+
   # Make npm output to STDOUT instead of its default STDERR
-  npm install --userconfig $build_dir/.npmrc --production 2>&1 | indent
+  if [ "$DEPLOY_TYPE" = "dev"]; then
+  	status "Installing dependencies including devDependencies"
+  	npm install --userconfig $build_dir/.npmrc 2>&1 | indent
+  else
+  	status "Installing dependencies"
+  	npm install --userconfig $build_dir/.npmrc --production 2>&1 | indent
+  fi
   
 )
 
