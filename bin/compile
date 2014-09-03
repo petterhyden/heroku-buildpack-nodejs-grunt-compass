@@ -173,6 +173,25 @@ PATH=$PATH:$build_dir/vendor/node/bin
 ### HEROKU BUILDPACK NODE END
 
 
+### install compass
+### MOVED COMPASS so it is installed before grunt
+status "Installing Compass"
+export GEM_HOME=$build_dir/.gem/ruby/1.9.1
+PATH="$GEM_HOME/bin:$PATH"
+if test -d $cache_dir/ruby/.gem; then
+  status "Restoring ruby gems directory from cache"
+  cp -r $cache_dir/ruby/.gem $build_dir
+  HOME=$build_dir gem update compass --user-install --no-rdoc --no-ri
+else
+  HOME=$build_dir gem install compass --user-install --no-rdoc --no-ri
+fi
+
+# cache ruby gems compass
+rm -rf $cache_dir/ruby
+mkdir -p $cache_dir/ruby
+
+### END COMPASS SASS
+
 
 ### HEROKU BUILDPACK GRUNT START
 # Run subsequent node/npm commands from the build path
@@ -270,21 +289,6 @@ if [ ! -e $build_dir/Procfile ]; then
   fi
 fi
 
-# install compass
-status "Installing Compass"
-export GEM_HOME=$build_dir/.gem/ruby/1.9.1
-PATH="$GEM_HOME/bin:$PATH"
-if test -d $cache_dir/ruby/.gem; then
-  status "Restoring ruby gems directory from cache"
-  cp -r $cache_dir/ruby/.gem $build_dir
-  HOME=$build_dir gem update compass --user-install --no-rdoc --no-ri
-else
-  HOME=$build_dir gem install compass --user-install --no-rdoc --no-ri
-fi
-
-# cache ruby gems compass
-rm -rf $cache_dir/ruby
-mkdir -p $cache_dir/ruby
 
 # If app has a gems directory, cache it.
 if test -d $build_dir/.gem; then
