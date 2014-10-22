@@ -317,8 +317,8 @@ echo "export PATH=\"\$HOME/.gem/ruby/1.9.1/bin:\$PATH\"" > $build_dir/.profile.d
       export_env_dir $env_dir
     fi
 
-    /*status "Running grunt heroku:$NODE_ENV task"
-    $build_dir/node_modules/.bin/grunt heroku:$NODE_ENV*/
+    # status "Running grunt heroku:$NODE_ENV task"
+    # $build_dir/node_modules/.bin/grunt heroku:$NODE_ENV*
     status "Running grunt heroku task"
     $build_dir/node_modules/.bin/grunt heroku
   fi
