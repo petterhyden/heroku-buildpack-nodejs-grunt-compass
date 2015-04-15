@@ -245,12 +245,12 @@ fi
 
 
   # Make npm output to STDOUT instead of its default STDERR
-  if [ "$DEPLOY_TYPE" = "dev" ]; then
+  if [ "$DEPLOY_TYPE" = "prod" ]; then
+    status "Installing dependencies"
+  	npm install --userconfig $build_dir/.npmrc --production 2>&1 | indent
+  else
   	status "Installing dependencies including devDependencies"
   	npm install --userconfig $build_dir/.npmrc 2>&1 | indent
-  else
-  	status "Installing dependencies"
-  	npm install --userconfig $build_dir/.npmrc --production 2>&1 | indent
   fi
   
 )
