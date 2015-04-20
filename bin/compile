@@ -174,29 +174,23 @@ PATH=$PATH:$build_dir/vendor/node/bin
 
 
 ### install compass
-### MOVED SASS so it is installed before grunt
-# install sass
-status "Installing Sass"
+### MOVED COMPASS so it is installed before grunt
+status "Installing Compass"
 export GEM_HOME=$build_dir/.gem/ruby/1.9.1
 PATH="$GEM_HOME/bin:$PATH"
 if test -d $cache_dir/ruby/.gem; then
   status "Restoring ruby gems directory from cache"
   cp -r $cache_dir/ruby/.gem $build_dir
-  HOME=$build_dir gem update sass --user-install --no-rdoc --no-ri
+  HOME=$build_dir gem update compass --user-install --no-rdoc --no-ri
 else
-  HOME=$build_dir gem install sass --user-install --no-rdoc --no-ri
+  HOME=$build_dir gem install compass --user-install --no-rdoc --no-ri
 fi
 
-# cache ruby gems sass
+# cache ruby gems compass
 rm -rf $cache_dir/ruby
 mkdir -p $cache_dir/ruby
 
-# If app has a gems directory, cache it.
-if test -d $build_dir/.gem; then
-  status "Caching ruby gems directory for future builds"
-  cp -r $build_dir/.gem $cache_dir/ruby
-fi
-### END SASS
+### END COMPASS SASS
 
 
 ### HEROKU BUILDPACK GRUNT START
@@ -301,6 +295,12 @@ if [ ! -e $build_dir/Procfile ]; then
   fi
 fi
 
+
+# If app has a gems directory, cache it.
+if test -d $build_dir/.gem; then
+  status "Caching ruby gems directory for future builds"
+  cp -r $build_dir/.gem $cache_dir/ruby
+fi
 
 status "Building runtime environment"
 mkdir -p $build_dir/.profile.d
